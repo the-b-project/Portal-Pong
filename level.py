@@ -1,8 +1,10 @@
 import pygame as pg
+import sys
 import random
 
 from settings import *
-from player import *
+from player1 import *
+from player2 import *
 from ball import *
 from startportal import *
 from endportal import *
@@ -24,11 +26,41 @@ class Level:
 		self.font = pg.font.SysFont(None, 50) # Load font file and set the font size
 
 	def create_objects(self):
-		Player((100, HEIGHT // 2), [self.visible_sprites, self.obstacle_sprites])
-		self.ball = Ball((random.randrange(WIDTH * 0.4, WIDTH * 0.6), random.randrange(0, HEIGHT)), [self.visible_sprites], self.obstacle_sprites)
+		# Generate the ball
+		self.ball = Ball(
+			(random.randrange(WIDTH * 0.4, WIDTH * 0.6), random.randrange(HEIGHT * 0.2, HEIGHT * 0.8)),
+			[self.visible_sprites],
+			self.obstacle_sprites
+		)
+
+		# Generate Player 1
+		Player1((100, HEIGHT // 2), [self.visible_sprites, self.obstacle_sprites])
+
+		# Portals for Player 1
+		Startportal(
+			(random.randrange(WIDTH * 0.2, WIDTH * 0.4), random.randrange(HEIGHT * 0.2, HEIGHT * 0.8)),
+			"white", "p1", [self.visible_sprites, self.obstacle_sprites]
+		)
+		Endportal(
+			(random.randrange(WIDTH * 0.6, WIDTH * 0.8), random.randrange(HEIGHT * 0.2, HEIGHT * 0.8)),
+			"yellow", "p1", [self.visible_sprites, self.obstacle_sprites]
+		)
+
+		# Generate Player 2
+		Player2((WIDTH - 100, HEIGHT // 2), [self.visible_sprites, self.obstacle_sprites])
+
+		# Portals for Player 2
+		Startportal(
+			(random.randrange(WIDTH * 0.6, WIDTH * 0.8), random.randrange(HEIGHT * 0.2, HEIGHT * 0.8)),
+			"brown", "p2", [self.visible_sprites, self.obstacle_sprites]
+		)
+		Endportal(
+			(random.randrange(WIDTH * 0.2, WIDTH * 0.4), random.randrange(HEIGHT * 0.2, HEIGHT * 0.8)),
+			"blue", "p2", [self.visible_sprites, self.obstacle_sprites]
+		)
+
+		# Middle line
 		Line((WIDTH // 2 , HEIGHT // 2), [self.visible_sprites])
-		Startportal((WIDTH // 3 , HEIGHT // 3), [self.visible_sprites, self.obstacle_sprites])
-		Endportal((WIDTH * 0.8 , HEIGHT * 0.8), [self.visible_sprites, self.obstacle_sprites])
 
 	def draw(self):
 		# Draw Start screen
@@ -73,6 +105,9 @@ class Level:
 			self.key_pressed = True # Prevent multiple key presses
 			self.playing = True # Set the level status to be playing (again)
 			self.create_objects() # Create the level objects
+		if keys[pg.K_ESCAPE]:
+			pg.quit()
+			sys.exit()
 	
 	def draw_default_screen(self, status):
 		if status == "start":
@@ -91,4 +126,8 @@ class Level:
 			textRect2 = text2.get_rect()
 			textRect2.center = (WIDTH // 2, HEIGHT * 0.5)
 			self.display_surface.blit(text2, textRect2)
-		
+
+			text3 = self.font.render("Press 'Escape' to quit the game", True, (0, 255, 0))
+			textRect3 = text3.get_rect()
+			textRect3.center = (WIDTH // 2, HEIGHT * 0.6)
+			self.display_surface.blit(text3, textRect3)

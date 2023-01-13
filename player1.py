@@ -2,7 +2,7 @@ import pygame as pg
 
 from settings import *
 
-class Player(pg.sprite.Sprite):
+class Player1(pg.sprite.Sprite):
 
     def __init__(self, pos, groups):
         super().__init__(groups)
@@ -18,11 +18,10 @@ class Player(pg.sprite.Sprite):
         # Movement
         self.direction = pg.math.Vector2()
         self.speed = 5
-        self.status = "right"
 
         # Attack
-        self.attacking = False
-        self.counter = 60
+        #self.attacking = False
+        #self.counter = 60
 
         self.type = "player"
 
@@ -30,12 +29,10 @@ class Player(pg.sprite.Sprite):
         keys = pg.key.get_pressed()
 
         # Y - Direction
-        if keys[pg.K_UP]:
+        if keys[pg.K_w]:
             self.direction.y = -1
-            self.status = "up"
-        elif keys[pg.K_DOWN]:
+        elif keys[pg.K_s]:
             self.direction.y = 1
-            self.status = "down"
         else:
             self.direction.y = 0
 
@@ -50,28 +47,28 @@ class Player(pg.sprite.Sprite):
         #    self.direction.x = 0
 
         # Set portal
-        if keys[pg.K_SPACE] and not self.attacking:
-            self.attacking = True
+        #if keys[pg.K_SPACE] and not self.attacking:
+        #    self.attacking = True
 
-            if self.status == "up":
-                pos_x = self.rect.x
-                pos_y = self.rect.y - 50
-            elif self.status == "down":
-                pos_x = self.rect.x
-                pos_y = self.rect.y + 50
-            elif self.status == "left":
-                pos_x = self.rect.x - 50
-                pos_y = self.rect.y
-            else:
-                pos_x = self.rect.x + 50
-                pos_y = self.rect.y
-            #Bullet((pos_x, pos_y), self.status, self.groups, self.obstacle_sprites)
+        #    if self.status == "up":
+        #        pos_x = self.rect.x
+        #        pos_y = self.rect.y - 50
+        #    elif self.status == "down":
+        #        pos_x = self.rect.x
+        #        pos_y = self.rect.y + 50
+        #    elif self.status == "left":
+        #        pos_x = self.rect.x - 50
+        #        pos_y = self.rect.y
+        #    else:
+        #        pos_x = self.rect.x + 50
+        #        pos_y = self.rect.y
+        #    Bullet((pos_x, pos_y), self.status, self.groups, self.obstacle_sprites)
 
     def move(self, speed):
-        if self.direction.magnitude() != 0:
-            self.direction = self.direction.normalize()
+        #if self.direction.magnitude() != 0:
+        #    self.direction = self.direction.normalize()
         
-        self.rect.x += self.direction.x * speed
+        #self.rect.x += self.direction.x * speed
         self.rect.y += self.direction.y * speed
 
     def cooldown(self):
@@ -83,5 +80,5 @@ class Player(pg.sprite.Sprite):
     def update(self):
         self.input()
         self.move(self.speed)
-        if self.attacking:
-            self.cooldown()
+        #if self.attacking:
+        #   self.cooldown()

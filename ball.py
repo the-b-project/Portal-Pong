@@ -63,6 +63,16 @@ class Ball(pg.sprite.Sprite):
                     if self.mask.overlap(sprite.mask, (offset_x, offset_y)):
                         if sprite.type == "player":
                             self.direction.x *= -1
+                        if sprite.type == "startportal-p1":
+                            for sprite in self.obstacle_sprites:
+                                if sprite.type == "endportal-p1":
+                                    self.direction.y *= -1
+                                    self.rect.center = sprite.rect.center
+                        if sprite.type == "startportal-p2":
+                            for sprite in self.obstacle_sprites:
+                                if sprite.type == "endportal-p2":
+                                    self.direction.y *= -1
+                                    self.rect.center = sprite.rect.center
 
     def update(self):
         self.move()
