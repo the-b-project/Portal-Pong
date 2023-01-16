@@ -39,7 +39,7 @@ class Level:
 		# Portals for Player 1
 		Startportal(
 			(random.randrange(WIDTH * 0.2, WIDTH * 0.4), random.randrange(HEIGHT * 0.2, HEIGHT * 0.8)),
-			"white", "p1", [self.visible_sprites, self.obstacle_sprites]
+			"orange", "p1", [self.visible_sprites, self.obstacle_sprites]
 		)
 		Endportal(
 			(random.randrange(WIDTH * 0.6, WIDTH * 0.8), random.randrange(HEIGHT * 0.2, HEIGHT * 0.8)),
@@ -56,7 +56,7 @@ class Level:
 		)
 		Endportal(
 			(random.randrange(WIDTH * 0.2, WIDTH * 0.4), random.randrange(HEIGHT * 0.2, HEIGHT * 0.8)),
-			"blue", "p2", [self.visible_sprites, self.obstacle_sprites]
+			"red", "p2", [self.visible_sprites, self.obstacle_sprites]
 		)
 
 		# Middle line

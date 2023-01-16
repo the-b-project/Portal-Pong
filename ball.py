@@ -7,7 +7,7 @@ class Ball(pg.sprite.Sprite):
         super().__init__(groups)
         
         self.image = pg.Surface((32, 32))
-        self.image.fill("red")
+        self.image.fill("white")
         #self.image = pg.image.load("assets/rock.png").convert_alpha()
         self.rect = self.image.get_rect(center = pos)
         self.mask = pg.mask.from_surface(self.image)

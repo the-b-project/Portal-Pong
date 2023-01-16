@@ -1,17 +1,11 @@
 import pygame as pg
 
 from settings import *
+from classes.portal import *
 
-class Endportal(pg.sprite.Sprite):
+class Endportal(Portal):
 
     def __init__(self, pos, color, player, groups):
-        super().__init__(groups)
-
-        self.image = pg.Surface((64, 64))
-        self.image.fill(color)
-        #self.image = pg.image.load("assets/rock.png").convert_alpha()
-        self.rect = self.image.get_rect(center = pos)
-        self.mask = pg.mask.from_surface(self.image)
-        self.mask.scale((10, 10))
+        super().__init__(pos, color, groups)
 
         self.type = "endportal-" + player
